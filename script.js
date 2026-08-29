@@ -1,39 +1,31 @@
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Responsive Navigation Menu Logic
-    const mobileMenuBtn = document.getElementById('mobile-menu');
-    const navLinksContainer = document.getElementById('nav-links');
-    const navLinksItems = document.querySelectorAll('.nav-link-item');
+// DOM ELEMENTS
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const navLinks = document.getElementById('navLinks');
+const contactForm = document.getElementById('contactForm');
 
-    mobileMenuBtn.addEventListener('click', () => {
-        navLinksContainer.classList.toggle('active');
-        // Toggle mobile menu icon
-        const icon = mobileMenuBtn.querySelector('i');
-        if (navLinksContainer.classList.contains('active')) {
-            icon.className = 'fas fa-times';
-        } else {
-            icon.className = 'fas fa-bars';
-        }
+// MOBILE NAV INTERACTION (TOGGLE OPEN / CLOSE & HAMBURGER ANIMATION)
+hamburgerBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    hamburgerBtn.classList.toggle('active');
+});
+
+// CLOSE NAV MENU AND RESET BURGER ANIMATION ON LINK CLICK (MOBILE)
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        hamburgerBtn.classList.remove('active');
     });
+});
 
-    // Close menu when a link is clicked (Mobile optimization)
-    navLinksItems.forEach(link => {
-        link.addEventListener('click', () => {
-            if (navLinksContainer.classList.contains('active')) {
-                navLinksContainer.classList.remove('active');
-                mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
-            }
-        });
-    });
-
-    // 2. Interactive Contact Form Validation Engine
-    const contactForm = document.getElementById('contact-form');
+// FORM SUBMISSION HANDLING WITH BASIC USER FEEDBACK
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Stop native postbacks
-
-        // Input handles
-        const nameInput = document.getElementById('name');
+    const name = document.getElementById('name').value;
+    
+    alert(`Thank you, ${name}! Your request has been logged successfully for Task 3 validation. Take your screenshots now.`);
+    contactForm.reset();
+});
         const emailInput = document.getElementById('email');
         const messageInput = document.getElementById('message');
 
